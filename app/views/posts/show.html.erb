@@ -1,0 +1,30 @@
+
+  <div class="posts-wrapper">
+    <div class="row">
+    <div class="post">
+    <div class="post-head">
+    <div class="name"> <%= @post.user %>
+      <div class="image">
+      <div class="center-block">
+       
+        <%= image_tag @post.image.url(:medium) %>
+        <%= @post.title %>
+      </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+<% if @post.user.id == current_user.id %>
+<div class="text-center">
+<div class="edit-links">
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
+</div></div>
+<% else %>
+<div class="text-center">
+<div class="edit-links">
+<%= link_to 'Back', posts_path %>
+</div></div>
+<% end %>
