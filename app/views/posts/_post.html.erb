@@ -5,6 +5,9 @@
       <div class="user-name">
         <%= post.user.user_name %>
       </div>
+      <div class="time-ago">
+          <%= time_ago_in_words post.created_at %> ago
+      </div>
     </div>
     <div class="image center-block">
       <%= link_to (image_tag post.image.url(:medium), class:'img-responsive'), post_path(post) %>
@@ -14,8 +17,25 @@
         <div class="user-name">
           <%= post.user.user_name %>
         </div>
+        
         <%= post.title %>
       </div>
+        <% if post.likes.exists? user_id: current_user.id %>
+          <% like = Like.find_by_user_id_and_post_id(current_user.id, post.id) %>
+          <%= link_to post_like_path(post, like), method: :delete, data: { confirm: "Are you sure?" } do %>
+            <span class="glyphicon glyphicon-heart delete-like"> </span>
+          <% end %>
+        <% else %>
+          <%= link_to post_likes_path(post), method: :post do %>
+            <span class="glyphicon glyphicon-heart-empty"> </span>
+          <% end %>
+        <% end %>
+
+        <br>
+     
+      liked <%= post.likes.count %> times
+              
+
       <% if post.comments %>
         <% post.comments.each do |comment| %>
           <div class="comment">
@@ -25,6 +45,7 @@
             <div class="comment-content">
               <%= comment.content %>
             </div>
+            
             <% if comment.user == current_user %>
               <%= link_to post_comment_path(post, comment), method: :delete, data: { confirm: "Are you sure?" } do %>
                 <span class="glyphicon glyphicon-remove delete-comment"> </span>
@@ -35,10 +56,7 @@
       <% end %>
     </div>
     <div class="comment-like-form row">
-      <div class="like-button col-sm-1">
-        <span class="glyphicon glyphicon-heart-empty"></span>
-      </div>
-      <div class="comment-form col-sm-11">
+            <div class="comment-form col-sm-11">
         <%= form_for [post, post.comments.new] do |f| %>
           <%= f.text_field :content, placeholder: 'Add a comment...' %>
         <% end %>
