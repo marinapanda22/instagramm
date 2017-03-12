@@ -22,7 +22,7 @@
       </div>
         <% if post.likes.exists? user_id: current_user.id %>
           <% like = Like.find_by_user_id_and_post_id(current_user.id, post.id) %>
-          <%= link_to post_like_path(post, like), method: :delete, data: { confirm: "Are you sure?" } do %>
+          <%= link_to post_like_path(post, like), method: :delete do %>
             <span class="glyphicon glyphicon-heart delete-like"> </span>
           <% end %>
         <% else %>
@@ -33,7 +33,7 @@
 
         <br>
      
-      liked <%= post.likes.count %> times
+      <%= post.likes.count %> likes
               
 
       <% if post.comments %>
@@ -47,7 +47,7 @@
             </div>
             
             <% if comment.user == current_user %>
-              <%= link_to post_comment_path(post, comment), method: :delete, data: { confirm: "Are you sure?" } do %>
+              <%= link_to post_comment_path(post, comment), method: :delete do %>
                 <span class="glyphicon glyphicon-remove delete-comment"> </span>
               <% end %>
             <% end %>
