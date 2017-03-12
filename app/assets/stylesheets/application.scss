@@ -142,7 +142,33 @@ body {
 html {  
   height: 100%;
 }
+.profile-header {
+  padding: 20px 0;
+}
 
+.profile-image {
+  margin: 20px auto;
+  height: 152px;
+  width: 152px;
+}
+
+.user-name-and-follow {
+  display: inline;
+}
+
+.profile-user-name {
+  display: inline;
+}
+
+.edit-button {
+  border-color: #818488;
+  color: #818488;
+  margin-left: 20px;
+}
+
+.profile-bio {
+  margin-top: 20px;
+}
 .registration-bg {
   padding-top: 10em;
   padding-bottom: 15em;
@@ -153,7 +179,9 @@ html {
   -o-background-size: cover;
   background-size: cover;
 }
-
+#user_avatar {
+  margin: 20px auto;
+}
 .log-in{
   margin-left: auto;
   margin-right: auto;
