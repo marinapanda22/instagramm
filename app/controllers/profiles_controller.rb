@@ -5,12 +5,14 @@ class ProfilesController < ApplicationController
   end
   def edit  
   	@user = User.find(params[:id])
+
+
   end
   def update  
     @user = User.find(params[:id])
     if @user.update(profile_params)
       flash[:success] = 'Your profile has been updated'
-      redirect_to :back
+      redirect_to profile_path(@user.id)
     else
       @user.errors.full_messages
       flash[:error] = @user.errors.full_messages
