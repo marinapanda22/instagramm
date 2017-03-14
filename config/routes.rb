@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   
+  get 'relationships/follow_user'
+
+  get 'relationships/unfollow_user'
+
+  resources :follows
   # get 'profiles/show'
 
   get 'profiles_show/:id' => 'profiles#show', as: 'profiles_show'

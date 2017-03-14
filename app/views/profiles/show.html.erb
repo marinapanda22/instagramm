@@ -12,10 +12,20 @@
         </h3>
         <span>
           <% if @user == current_user %>
-            <%= link_to 'Edit Profile', profiles_edit_path(@user[:id]),  class: 'btn edit-button'%>
-             
-           
-          <% end %>
+            <%= link_to 'Edit Profile', profiles_edit_path(@user[:id]),  class: 'btn edit-button' %>
+          <% else %>
+            <% if @user.follows.exists? follower_id: current_user.id %>
+              <% follow = Follow.find_by_follower_id_and_following_id(current_user.id, @user.id) %>
+              <%= link_to 'UnFollow', follow_path(follow), method: :delete, class: 'btn unfollow-button' %>
+              
+            <% else %>
+              <%= link_to 'Follow', follows_path(ddd: @user.id), method: :post, class: 'btn follow-button' %>
+            <% end %>
+            
+  			      
+			
+		      <% end %>
+      
         </span>
       </div>
       <p class="profile-info">
@@ -24,6 +34,12 @@
       <div class="user-statistics">
         <p>
           <%= pluralize @user.posts.count, 'post' %>
+        </p>
+        <p>
+          <%= @user.follows.count %> followers
+        </p>
+        <p>
+          <%= @user.followers.count %> follows
         </p>
       </div>
     </div>
